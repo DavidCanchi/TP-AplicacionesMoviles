@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TPUNLA</string>
+    <string name="listaPeliculas_title">STUDIO GHIBLI</string>
+    <string name="imageDescriptionSupl">-</string>
+    <string name="imageDetailDescriptionSupl">Icon Image</string>
+    <!-- Film Detail strings -->
+    <string name="filmDetailSinopsis"><u>SINÓPSIS</u></string>
+    <string name="filmDetailDirector"><u>DIRECTOR</u></string>
+    <string name="filmDetailDuration"><u>DURATION</u></string>
+    <string name="filmDetailReleaseDate"><u>RELEASE DATE</u></string>
+    <string name="filmDetailScore"><u>SCORE</u></string>
 </resources>
