@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.tp.tpunla.R;
 import com.tp.tpunla.data.Data;
@@ -25,7 +24,6 @@ public class ActivityFilms extends AppCompatActivity {
     private void setupAdapter() {
         rvFilms = findViewById(R.id.rv_films);
         filmAdapter = new FilmAdapter(Data.getFilms(10), film -> {
-            Toast.makeText(ActivityFilms.this, film.getTitle(), Toast.LENGTH_SHORT).show();
             Intent detailActivity = new Intent(ActivityFilms.this, ActivityFilmDetail.class);
             detailActivity.putExtra("id", film.getId());
             startActivity(detailActivity);
