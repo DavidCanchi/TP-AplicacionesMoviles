@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".activities.HomeActivity"
+    android:background="@color/background_blue"
+    >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            tools:ignore="UselessParent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="70dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/background"
+                android:scaleType="fitCenter" />
+           <LinearLayout
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="bottom"
+               android:gravity="center">
+               <include
+                   android:id="@+id/accederButton"
+                   layout='@layout/button'/>
+               <include
+                   android:id="@+id/registrarseButton"
+                   layout='@layout/button'/>
+           </LinearLayout>
+        </FrameLayout>
+</LinearLayout>

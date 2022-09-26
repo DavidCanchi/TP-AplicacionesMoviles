@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.RegisterActivity">
 
     <EditText
         android:paddingTop="50dp"
         android:hint="Usuario"
-        android:id="@+id/loginUsuario"
+        android:id="@+id/registerUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -22,7 +22,7 @@
         android:layout_margin="10dp"
         />
     <EditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/registerPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"
@@ -31,30 +31,26 @@
         android:inputType="textPassword"
         android:autofillHints="password"
         android:layout_margin="10dp"/>
-    <LinearLayout
+    <EditText
+        android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <CheckBox
-            android:id="@+id/loginCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recordar usuario"
-            android:gravity="center"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+        android:hint="Correo electrónico"
+        tools:ignore="HardcodedText"
+        android:gravity="center"
+        android:inputType="textEmailAddress"
+        android:autofillHints="password"
+        android:layout_margin="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:weightSum="1">
         <Button
-            android:id="@+id/buttonIniciarSesion"
+            android:id="@+id/buttonRegistro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Iniciar sesion"
+            android:text="Registrarse"
             tools:ignore="HardcodedText"
             android:layout_weight="0.5"/>
     </LinearLayout>
@@ -74,14 +70,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿No tienes cuenta?"
+                android:text="¿Ya tienes una cuenta?"
                 tools:ignore="HardcodedText"/>
             <Button
-                android:id="@+id/buttonRegister"
+                android:id="@+id/buttonLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Registrate"
+                android:text="Inicia sesión"
                 android:textColor="@color/background_blue"
                 style="?android:attr/borderlessButtonStyle"
                 tools:ignore="HardcodedText" />

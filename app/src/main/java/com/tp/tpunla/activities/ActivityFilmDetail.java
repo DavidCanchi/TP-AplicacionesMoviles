@@ -1,10 +1,11 @@
 package com.tp.tpunla.activities;
 
-import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,10 +15,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.tp.tpunla.R;
+import com.tp.tpunla.constants.Constants;
 import com.tp.tpunla.data.Data;
 import com.tp.tpunla.models.FilmDetail;
-
-import java.util.Objects;
 
 public class ActivityFilmDetail extends AppCompatActivity {
     TextView filmDetailTitle, filmDetailOriginalTitle, filmDetailDescription,
@@ -54,23 +54,30 @@ public class ActivityFilmDetail extends AppCompatActivity {
             Picasso.get().load(filmDetail.getUrlImage()).into(filmDetailImage);
             Picasso.get().load(filmDetail.getUrlImageBanner()).into(filmDetailImageBanner);
         }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.buttonLogout) {
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove(Constants.USUARIO);
+            editor.remove(Constants.PASSWORD);
+            editor.apply();
+            Intent homeActivity = new Intent(ActivityFilmDetail.this, HomeActivity.class);
+            startActivity(homeActivity);
+            finish();
+        } else if(item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

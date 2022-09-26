@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TPUNLA</string>
+    <string name="app_name">STUDIO GHIBLI</string>
     <string name="listaPeliculas_title">FILMS</string>
     <string name="imageDescriptionSupl">-</string>
     <string name="imageDetailDescriptionSupl">Icon Image</string>
@@ -9,4 +9,17 @@
     <string name="filmDetailDuration"><u>DURATION</u></string>
     <string name="filmDetailReleaseDate"><u>RELEASE DATE</u></string>
     <string name="filmDetailScore"><u>SCORE</u></string>
+    <string name="home_acceder_button">Acceder</string>
+    <string name="home_registrarse_button">Registrarse</string>
+    <string name="title_activity_login2">LoginActivity2</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login_usuario_placeholder">Usuario</string>
+    <string name="login_password_placeholder">Contraseña</string>
 </resources>
