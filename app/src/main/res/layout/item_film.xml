@@ -31,25 +31,28 @@
                     android:id="@+id/filmTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Castle in the Sky"
+                    android:text=""
                     android:textStyle="bold"
                     android:fontFamily="@font/msgothic"
                     android:textAllCaps="true"
                     android:textSize="23sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    tools:ignore="Deprecated,TextViewEdits"
+                    android:inputType="textNoSuggestions"/>
                 <TextView
                     android:id="@+id/filmDirector"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="3dp"
                     android:layout_weight="0.5"
-                    android:text="Hayao Miyazaki"
+                    android:text=""
                     android:textStyle="bold"
                     android:fontFamily="@font/msgothic"
                     android:capitalize="words"
                     android:textSize="20sp"
                     android:textColor="@color/black_light"
-                    tools:ignore="Deprecated" />
+                    tools:ignore="Deprecated,TextViewEdits"
+                    android:inputType="textNoSuggestions"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +64,7 @@
                     android:id="@+id/filmReleaseDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2004"
+                    android:text=""
                     android:fontFamily="@font/msgothic"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -72,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="★ 95 ★"
+                    android:text=""
                     android:textStyle="bold"
                     android:fontFamily="@font/msgothic"
                     android:textSize="20sp"

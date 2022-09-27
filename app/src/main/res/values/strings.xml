@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">STUDIO GHIBLI</string>
-    <string name="listaPeliculas_title">FILMS</string>
     <string name="imageDescriptionSupl">-</string>
     <string name="imageDetailDescriptionSupl">Icon Image</string>
     <!-- Film Detail strings -->

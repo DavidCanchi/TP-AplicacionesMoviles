@@ -6,8 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".activities.HomeActivity"
-    android:background="@color/background_blue"
-    >
+    android:background="@color/background_blue">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +22,8 @@
                 android:paddingBottom="70dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/background"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription" />
            <LinearLayout
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"

@@ -6,9 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.LoginActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_margin="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_baseline_login_24"/>
+    </LinearLayout>
     <EditText
-        android:paddingTop="50dp"
         android:hint="Usuario"
         android:id="@+id/loginUsuario"
         android:layout_width="match_parent"

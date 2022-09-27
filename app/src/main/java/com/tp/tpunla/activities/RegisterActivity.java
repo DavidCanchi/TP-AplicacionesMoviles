@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        setup();
+        initVariables();
 
         buttonRegistro.setOnClickListener(v -> {
             String usuario = registerUsuario.getText().toString();
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void setup() {
+    private void initVariables() {
         registerUsuario = findViewById(R.id.registerUsuario);
         registerPassword = findViewById(R.id.registerPassword);
         registerEmail = findViewById(R.id.registerEmail);

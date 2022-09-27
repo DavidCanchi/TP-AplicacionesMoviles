@@ -2,7 +2,6 @@ package com.tp.tpunla.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -13,12 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import com.tp.tpunla.R;
 import com.tp.tpunla.constants.Constants;
 import com.tp.tpunla.data.Data;
+
+import java.util.Objects;
 
 public class ActivityFilms extends AppCompatActivity {
 
@@ -26,16 +26,13 @@ public class ActivityFilms extends AppCompatActivity {
     FilmAdapter filmAdapter;
     Spinner dropdown;
     String[] cantidades = new String[]{"10", "8", "6", "4"};
-    Button buttonLogout;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_films);
-
-        dropdown = findViewById(R.id.filmsSpinner);
-        rvFilms = findViewById(R.id.rv_films);
-
+        initVariables();
         setupAdapter(10);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, cantidades);
         dropdown.setAdapter(adapter);
@@ -47,11 +44,16 @@ public class ActivityFilms extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
-    };
+    }
+
+    private void initVariables() {
+        dropdown = findViewById(R.id.filmsSpinner);
+        rvFilms = findViewById(R.id.rv_films);
+        prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
+        Objects.requireNonNull(this.getSupportActionBar()).setSubtitle("Films");
+    }
 
     private void setupAdapter(int cantidad) {
         rvFilms = findViewById(R.id.rv_films);
@@ -66,13 +68,14 @@ public class ActivityFilms extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.itemUsuario).setTitle(prefs.getString(Constants.USUARIO, "Anónimo"));
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.buttonLogout) {
-            SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
+        if(item.getItemId() == R.id.itemLogout) {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove(Constants.USUARIO);
             editor.remove(Constants.PASSWORD);

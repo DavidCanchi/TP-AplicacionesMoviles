@@ -13,9 +13,20 @@
         android:layout_height="wrap_content"
         android:text="\nUsuario registrado correctamente.\nAhora puede iniciar sesión.\n"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/green"
         tools:ignore="HardcodedText"
         android:padding="15dp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginBottom="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_check_24"/>
+    </LinearLayout>
 </LinearLayout>

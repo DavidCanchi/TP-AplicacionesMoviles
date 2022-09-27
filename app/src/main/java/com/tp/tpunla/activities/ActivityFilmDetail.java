@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -19,26 +20,26 @@ import com.tp.tpunla.constants.Constants;
 import com.tp.tpunla.data.Data;
 import com.tp.tpunla.models.FilmDetail;
 
+import java.util.Objects;
+
 public class ActivityFilmDetail extends AppCompatActivity {
-    TextView filmDetailTitle, filmDetailOriginalTitle, filmDetailDescription,
-            filmDetailDirector, filmDetailDuration, filmDetailYear, filmDetailScore;
-    ImageView filmDetailImageBanner, filmDetailImage;
+    TextView filmDetailTitle,
+            filmDetailOriginalTitle,
+            filmDetailDescription,
+            filmDetailDirector,
+            filmDetailDuration,
+            filmDetailYear,
+            filmDetailScore;
+    ImageView filmDetailImageBanner,
+            filmDetailImage;
+    SharedPreferences prefs;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_detail);
-
-        filmDetailTitle = findViewById(R.id.filmDetailTitle);
-        filmDetailOriginalTitle = findViewById(R.id.filmDetailOriginalTitle);
-        filmDetailDescription = findViewById(R.id.filmDetailDescription);
-        filmDetailDirector = findViewById(R.id.filmDetailDirector);
-        filmDetailDuration = findViewById(R.id.filmDetailDuration);
-        filmDetailYear = findViewById(R.id.filmDetailYear);
-        filmDetailScore = findViewById(R.id.filmDetailScore);
-        filmDetailImageBanner = findViewById(R.id.filmDetailImageBanner);
-        filmDetailImage = findViewById(R.id.filmDetailImage);
+        initVariables();
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
@@ -54,19 +55,34 @@ public class ActivityFilmDetail extends AppCompatActivity {
             Picasso.get().load(filmDetail.getUrlImage()).into(filmDetailImage);
             Picasso.get().load(filmDetail.getUrlImageBanner()).into(filmDetailImageBanner);
         }
+    }
+
+    private void initVariables() {
+        filmDetailTitle = findViewById(R.id.filmDetailTitle);
+        filmDetailOriginalTitle = findViewById(R.id.filmDetailOriginalTitle);
+        filmDetailDescription = findViewById(R.id.filmDetailDescription);
+        filmDetailDirector = findViewById(R.id.filmDetailDirector);
+        filmDetailDuration = findViewById(R.id.filmDetailDuration);
+        filmDetailYear = findViewById(R.id.filmDetailYear);
+        filmDetailScore = findViewById(R.id.filmDetailScore);
+        filmDetailImageBanner = findViewById(R.id.filmDetailImageBanner);
+        filmDetailImage = findViewById(R.id.filmDetailImage);
+        prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
+        Objects.requireNonNull(this.getSupportActionBar()).setSubtitle("Film detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.itemUsuario).setTitle(prefs.getString(Constants.USUARIO, "Anónimo"));
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.buttonLogout) {
-            SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
+        if(item.getItemId() == R.id.itemLogout) {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove(Constants.USUARIO);
             editor.remove(Constants.PASSWORD);

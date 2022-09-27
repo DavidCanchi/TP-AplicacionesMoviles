@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setup();
+        initVariables();
 
         buttonIniciarSesion.setOnClickListener(v -> {
             String usuario = loginUsuario.getText().toString();
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void setup() {
+    private void initVariables() {
         loginUsuario = findViewById(R.id.loginUsuario);
         loginPassword = findViewById(R.id.loginPassword);
         buttonIniciarSesion = findViewById(R.id.buttonIniciarSesion);
