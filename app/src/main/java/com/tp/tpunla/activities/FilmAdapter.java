@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tp.tpunla.R;
-import com.tp.tpunla.models.Film;
+import com.tp.tpunla.services.studioghibli.Film;
 
 import java.util.List;
 
@@ -36,10 +36,10 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     public void onBindViewHolder(@NonNull FilmViewHolder holder, int position) {
         holder.filmTitle.setText(films.get(position).getTitle());
         holder.filmDirector.setText(films.get(position).getDirector());
-        holder.filmReleaseDate.setText(String.valueOf(films.get(position).getReleaseDate()));
-        String score = "★ " + films.get(position).getScore();
+        holder.filmReleaseDate.setText(films.get(position).getRelease_date());
+        String score = "★ " + films.get(position).getRt_score();
         holder.filmScore.setText(score);
-        Picasso.get().load(films.get(position).getUrlImage()).into(holder.filmImage);
+        Picasso.get().load(films.get(position).getImage()).into(holder.filmImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,62 +7,69 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.tp.tpunla.R;
 import com.tp.tpunla.constants.Constants;
-import com.tp.tpunla.data.Data;
+import com.tp.tpunla.services.studioghibli.Film;
+import com.tp.tpunla.services.studioghibli.GhibliClient;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Response;
 
 public class ActivityFilms extends AppCompatActivity {
 
     RecyclerView rvFilms;
     FilmAdapter filmAdapter;
-    Spinner dropdown;
-    String[] cantidades = new String[]{"10", "8", "6", "4"};
     SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_films);
         initVariables();
-        setupAdapter(10);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, cantidades);
-        dropdown.setAdapter(adapter);
-
-        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setupAdapter(Integer.parseInt(cantidades[position]));
+        new Thread() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setupAdapter();
+                    }
+                });
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-        });
+        }.start();
     }
 
     private void initVariables() {
-        dropdown = findViewById(R.id.filmsSpinner);
         rvFilms = findViewById(R.id.rv_films);
         prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
         Objects.requireNonNull(this.getSupportActionBar()).setSubtitle("Films");
     }
 
-    private void setupAdapter(int cantidad) {
-        rvFilms = findViewById(R.id.rv_films);
-        filmAdapter = new FilmAdapter(Data.getFilms(cantidad), film -> {
-            Intent detailActivity = new Intent(ActivityFilms.this, ActivityFilmDetail.class);
-            detailActivity.putExtra("id", film.getId());
-            startActivity(detailActivity);
-        });
-        rvFilms.setAdapter(filmAdapter);
+    private void setupAdapter() {
+        try {
+            Log.i(ActivityFilms.class.getName(),"Trayendo datos");
+            Response<List<Film>> response = GhibliClient.INSTANCE.getApi().getFilms(20).execute();
+            List<Film> films = response.body();
+            filmAdapter = new FilmAdapter(films, film -> {
+                Intent detailActivity = new Intent(ActivityFilms.this, ActivityFilmDetail.class);
+                detailActivity.putExtra("id", film.getId());
+                startActivity(detailActivity);
+            });
+            rvFilms.setAdapter(filmAdapter);
+        } catch (IOException e) {
+            Log.e(ActivityFilms.class.getName(),"Error al traer los datos " + e.getMessage());
+            Toast.makeText(ActivityFilms.this, "Error al traer los films", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

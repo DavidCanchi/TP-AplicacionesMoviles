@@ -12,23 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TPUNLA">
         <activity
+            android:name=".ActivityYesNo"
+            android:exported="false" />
+        <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.ActivityFilmDetail"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityFilms"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.HomeActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

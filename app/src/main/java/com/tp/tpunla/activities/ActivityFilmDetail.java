@@ -13,14 +13,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.tp.tpunla.R;
 import com.tp.tpunla.constants.Constants;
-import com.tp.tpunla.data.Data;
-import com.tp.tpunla.models.FilmDetail;
+import com.tp.tpunla.services.studioghibli.FilmDetail;
+import com.tp.tpunla.services.studioghibli.GhibliClient;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import retrofit2.Response;
 
 public class ActivityFilmDetail extends AppCompatActivity {
     TextView filmDetailTitle,
@@ -42,18 +46,34 @@ public class ActivityFilmDetail extends AppCompatActivity {
         initVariables();
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id", 0);
-        if (id != 0) {
-            FilmDetail filmDetail = Data.getFilmDetails(id);   // TODO: Cambiar por llamado a la API
-            filmDetailTitle.setText(filmDetail.getTitle());
-            filmDetailOriginalTitle.setText(filmDetail.getOriginalTitle());
-            filmDetailDescription.setText(filmDetail.getSinopsis());
-            filmDetailDirector.setText(filmDetail.getDirector());
-            filmDetailDuration.setText(String.valueOf(filmDetail.getDurationString()));
-            filmDetailYear.setText(String.valueOf(filmDetail.getReleaseDate()));
-            filmDetailScore.setText(String.valueOf(filmDetail.getScore()));
-            Picasso.get().load(filmDetail.getUrlImage()).into(filmDetailImage);
-            Picasso.get().load(filmDetail.getUrlImageBanner()).into(filmDetailImageBanner);
+        String id = intent.getStringExtra("id");
+        if (id != null) {
+            new Thread() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Log.i(ActivityFilmDetail.class.getName(), "Trayendo datos");
+                                Response<FilmDetail> response = GhibliClient.INSTANCE.getApi().getFilm(id).execute();
+                                FilmDetail filmDetail = response.body();
+                                filmDetailTitle.setText(filmDetail.getTitle());
+                                filmDetailOriginalTitle.setText(filmDetail.getOriginal_title_romanised());
+                                filmDetailDescription.setText(filmDetail.getDescription());
+                                filmDetailDirector.setText(filmDetail.getDirector());
+                                filmDetailDuration.setText(filmDetail.getRunning_time());
+                                filmDetailYear.setText(filmDetail.getRelease_date());
+                                filmDetailScore.setText(filmDetail.getRt_score());
+                                Picasso.get().load(filmDetail.getImage()).into(filmDetailImage);
+                                Picasso.get().load(filmDetail.getMovie_banner()).into(filmDetailImageBanner);
+                            }catch (IOException e) {
+                                Log.e(ActivityFilmDetail.class.getName(),"Error al traer los datos " + e.getMessage());
+                                Toast.makeText(ActivityFilmDetail.this, "Error al traer el film", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }.start();
         }
     }
 
