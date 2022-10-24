@@ -66,8 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i(LoginActivity.class.getName(),"Usuario guardado en memoria");
                 }
                 Log.i(LoginActivity.class.getName(),"Usuario logueado correctamente");
-                Intent activityFilms = new Intent(LoginActivity.this, ActivityFilms.class);
-                startActivity(activityFilms);
+                Intent activityYesNo = new Intent(LoginActivity.this, ActivityYesNo.class);
+                activityYesNo.putExtra("seRecuerdaUsuario", loginCheckbox.isChecked());
+                startActivity(activityYesNo);
                 finish();
             } else {
                 Toast.makeText(LoginActivity.this, "Datos incorrectos", Toast.LENGTH_SHORT).show();

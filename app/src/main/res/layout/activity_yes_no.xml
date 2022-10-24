@@ -14,19 +14,25 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:id="@+id/yesno_text"
+        android:visibility="gone"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
-        <ImageView
+        android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/yesno_image"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/example"
+            android:visibility="gone"
             />
     </LinearLayout>
     <Button
@@ -34,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aceptar"
+        android:visibility="gone"
         tools:ignore="HardcodedText"
         />
 </LinearLayout>

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TPUNLA">
         <activity
-            android:name=".ActivityYesNo"
+            android:name=".activities.ActivityYesNo"
             android:exported="false" />
         <activity
             android:name=".activities.RegisterActivity"
