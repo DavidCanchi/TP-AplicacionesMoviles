@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.tp.tpunla.R
 import com.tp.tpunla.services.yesno.YesNoClient
 
@@ -41,7 +41,7 @@ class ActivityYesNo : AppCompatActivity() {
                     val response = YesNoClient.api.getAnswer(if(seRecuerdaUsuario) "yes" else "no").execute()
                     val answer = response.body()
                     if (answer != null) {
-                        Picasso.get().load(answer.image).into(imageTextNo)
+                        Glide.with(applicationContext).load(answer.image).into(imageTextNo)
                         textYesNo.setText(if(seRecuerdaUsuario) "Se recordadará el usuario" else "No se recordará el usuario")
                         progressCircular.setVisibility(View.GONE)
                         textYesNo.setVisibility(View.VISIBLE)
