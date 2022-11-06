@@ -76,5 +76,4 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegistro = findViewById(R.id.buttonRegistro);
         buttonLogin = findViewById(R.id.buttonLogin);
     }
-
 }

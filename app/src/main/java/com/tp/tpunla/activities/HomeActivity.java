@@ -2,8 +2,11 @@ package com.tp.tpunla.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -26,6 +29,8 @@ public class HomeActivity extends Activity {
         accederButton.setText("ACCEDER");
         registrarseButton.setText("REGISTRARSE");
 
+        createChannelUsuario();
+        
         SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.SP_CREDENCIALES, MODE_PRIVATE);
         String usuarioGuardado = prefs.getString(Constants.USUARIO, null);
         String passwordGuardado = prefs.getString(Constants.PASSWORD, null);
@@ -48,5 +53,14 @@ public class HomeActivity extends Activity {
             startActivity(loginActivity);
             finish();
         });
+    }
+
+    private void createChannelUsuario(){
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(Constants.CHANNEL_ID, "usuarioChannel", NotificationManager.IMPORTANCE_LOW);
+            notificationChannel.setDescription("Notificación de autentificación de usuario");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }

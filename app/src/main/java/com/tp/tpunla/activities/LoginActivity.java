@@ -1,7 +1,11 @@
 package com.tp.tpunla.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(Constants.PASSWORD, password);
                     editor.apply();
                     Log.i(LoginActivity.class.getName(),"Usuario guardado en memoria");
+                    NotificationManagerCompat.from(this).notify(1, crearNotificacion());
                 }
                 Log.i(LoginActivity.class.getName(),"Usuario logueado correctamente");
                 Intent activityYesNo = new Intent(LoginActivity.this, ActivityYesNo.class);
@@ -78,5 +83,14 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(LoginActivity.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private Notification crearNotificacion(){
+        return new NotificationCompat.Builder(this, Constants.CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Usuario logueado")
+                .setContentText("El usuario logueado será recordado")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build();
     }
 }
